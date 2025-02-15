@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - منصة نَجِدْ </title>
+    <style>
+        /* الأنماط السابقة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+        }
+        body {
+            background-color: var(--light-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        .auth-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .auth-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+        }
+        .tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            margin-bottom: -2px;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #444;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: white;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+        .form-container {
+            display: none;
+        }
+        .form-container.active {
+            display: block;
+        }
+        .error-message {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        .social-login {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .social-btn {
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .social-btn:hover {
+            background-color: #f5f5f5;
+        }
+        .forgot-password {
+            text-align: left;
+            margin-top: 1rem;
+        }
+        .forgot-password a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="logo">منصة نَجِدْ</div>
+            <div class="nav-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="contact.html">تواصل معنا</a>
+                <a href="login.html">تسجيل الدخول</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="tabs">
+                <div class="tab active" data-tab="login">تسجيل الدخول</div>
+                <div class="tab" data-tab="register">حساب جديد</div>
+            </div>
+
+            <!-- نموذج تسجيل الدخول -->
+            <form id="loginForm" class="form-container active">
+                <div class="form-group">
+                    <label for="loginEmail">البريد الإلكتروني</label>
+                    <input type="email" id="loginEmail" required>
+                    <div class="error-message">الرجاء إدخال بريد إلكتروني صحيح</div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">كلمة المرور</label>
+                    <input type="password" id="loginPassword" required>
+                    <div class="error-message">كلمة المرور مطلوبة</div>
+                </div>
+                <button type="submit" class="submit-btn">تسجيل الدخول</button>
+                <div class="forgot-password">
+                    <a href="#">نسيت كلمة المرور؟</a>
+                </div>
+            </form>
+
+            <!-- نموذج التسجيل الجديد -->
+            <form id="registerForm" class="form-container">
+                <div class="form-group">
+                    <label for="registerName">الاسم الكامل</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">البريد الإلكتروني</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="userType">نوع الحساب</label>
+                    <select id="userType" required>
+                        <option value="">اختر نوع الحساب</option>
+                        <option value="innovator">مبتكر</option>
+                        <option value="investor">مستثمر</option>
+                        <option value="expert">خبير</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">كلمة المرور</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">تأكيد كلمة المرور</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="submit-btn">إنشاء حساب</button>
+            </form>
+
+            <div class="social-login">
+                <p style="margin-bottom: 1rem; color: #666;">أو سجل الدخول باستخدام</p>
+                <button class="social-btn">Google</button>
+                <button class="social-btn">LinkedIn</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // التبديل بين نموذجي تسجيل الدخول والتسجيل الجديد
+        const tabs = document.querySelectorAll('.tab');
+        const forms = document.querySelectorAll('.form-container');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // إزالة الفئة النشطة من جميع التبويبات والنماذج
+                tabs.forEach(t => t.classList.remove('active'));
+                forms.forEach(f => f.classList.remove('active'));
+                
+                // إضافة الفئة النشطة للتبويب والنموذج المحدد
+                tab.classList.add('active');
+                document.querySelector(`#${tab.dataset.tab}Form`).classList.add('active');
+            });
+        });
+
+        // التحقق من صحة نموذج تسجيل الدخول
+        const loginForm = document.getElementById('loginForm');
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail');
+            const password = document.getElementById('loginPassword');
+            let isValid = true;
+
+            // التحقق من البريد الإلكتروني
+            if (!email.value || !email.value.includes('@')) {
+                email.nextElementSibling.style.display = 'block';
+                isValid = false;
+            } else {
+                email.nextElementSibling.style.display = 'none';
+            }
+
+            // التحقق من كلمة المرور
+            if (!password.value) {
+                password.nextElementSibling.style.display = 'block';
+                isValid = false;
+            } else {
+                password.nextElementSibling.style.display = 'none';
+            }
+
+            if (isValid) {
+                // هنا يمكن إضافة كود إرسال البيانات إلى الخادم
+                console.log('تم تسجيل الدخول بنجاح');
+                alert('تم تسجيل الدخول بنجاح');
+            }
+        });
+
+        // التحقق من صحة نموذج التسجيل الجديد
+        const registerForm = document.getElementById('registerForm');
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const userType = document.getElementById('userType').value;
+
+            if (password !== confirmPassword) {
+                alert('كلمات المرور غير متطابقة');
+                return;
+            }
+
+            if (!userType) {
+                alert('الرجاء اختيار نوع الحساب');
+                return;
+            }
+
+            // هنا يمكن إضافة كود إرسال البيانات إلى الخادم
+            console.log('تم إنشاء الحساب بنجاح');
+            alert('تم إنشاء الحساب بنجاح');
+        });
+    </script>
+</body>
+</html>

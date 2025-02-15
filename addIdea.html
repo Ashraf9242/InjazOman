@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة فكرة جديدة - منصة نَجِدْ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            background-color: var(--light-bg);
+        }
+
+    
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 20px;
+        }
+
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-lightbulb"></i>
+                منصة نَجِدْ
+            </a>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="innovation.html"><i class="fas fa-brain"></i> الأفكار</a>
+                <a href="library.html"><i class="fas fa-book"></i> المكتبة</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> تواصل معنا</a>
+                <a href="profile.html"><i class="fas fa-user"></i> الملف الشخصي</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>إضافة فكرة جديدة</h2>
+        <form action="#" method="post">
+            <label for="idea-title">عنوان الفكرة</label>
+            <input type="text" id="idea-title" name="idea-title" required>
+
+            <label for="idea-description">نموذج تقديم الفكرة</label>
+            <textarea id="idea-description" name="idea-description" rows="4" required></textarea>
+
+            <label for="idea-documents">رفع المستندات</label>
+            <input type="file" id="idea-documents" name="idea-documents" multiple>
+
+            <label for="idea-category">تحديد المجال</label>
+            <select id="idea-category" name="idea-category" required>
+                <option value="">اختر المجال</option>
+                <option value="التقنية">التقنية</option>
+                <option value="الصحة">الصحة</option>
+                <option value="الطاقة">الطاقة</option>
+                <option value="التعليم">التعليم</option>
+            </select>
+
+            <label for="patent-request">طلب حماية الملكية الفكرية</label>
+            <select id="patent-request" name="patent-request" required>
+                <option value="">اختر الخيار</option>
+                <option value="نعم">نعم</option>
+                <option value="لا">لا</option>
+            </select>
+
+            <button type="submit" class="submit-btn">إرسال الفكرة</button>
+        </form>
+    </div>
+</body>
+</html>

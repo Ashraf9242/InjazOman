@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض الأفكار - منصة نَجِدْ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+        }
+
+        body {
+            background-color: var(--light-bg);
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 3rem;
+            text-align: center;
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="rgba(255,255,255,0.1)" x="0" y="0" width="100" height="100"/></svg>');
+            opacity: 0.1;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .filters {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            min-width: 200px;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .ideas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .idea-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .idea-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .idea-image {
+            width: 100%;
+            height: 200px;
+            background-color: #e5e7eb;
+            overflow: hidden;
+        }
+
+        .idea-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .idea-card:hover .idea-image img {
+            transform: scale(1.05);
+        }
+
+        .idea-content {
+            padding: 20px;
+        }
+
+        .idea-category {
+            display: inline-block;
+            padding: 6px 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .idea-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
+        .idea-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .idea-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .badge {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge.featured {
+            background-color: var(--success-color);
+        }
+
+        .badge.new {
+            background-color: var(--secondary-color);
+        }
+
+        .badge.development {
+            background-color: var(--warning-color);
+        }
+
+        .stats {
+            background-color: var(--primary-color);
+            padding: 3rem;
+            color: white;
+            text-align: center;
+            border-radius: 15px;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(52, 152, 219, 0.1) 0%, rgba(44, 62, 80, 0.1) 100%);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            position: relative;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-item h4 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .filter-options {
+                flex-direction: column;
+            }
+
+            .filter-select {
+                width: 100%;
+            }
+
+            .ideas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                padding: 2rem 1rem;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .pagination-button {
+            padding: 8px 16px;
+            border: none;
+            background-color: white;
+            color: var(--primary-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .pagination-button:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .pagination-button.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-lightbulb"></i>
+                منصة نَجِدْ
+            </a>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="innovation.html"><i class="fas fa-brain"></i> الأفكار</a>
+                <a href="library.html"><i class="fas fa-book"></i> المكتبة</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> تواصل معنا</a>
+                <a href="profile.html"><i class="fas fa-user"></i> الملف الشخصي</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="hero">
+            <h1>معرض الأفكار الإبداعية</h1>
+            <p>اكتشف أحدث الأفكار المبتكرة وشارك في تطوير المستقبل</p>
+        </section>
+
+        <section class="filters">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="ابحث عن فكرة...">
+            </div>
+            <div class="filter-options">
+                <select class="filter-select">
+                    <option value="">المجال</option>
+                    <option value="technology">تقنية</option>
+                    <option value="health">صحة</option>
+                    <option value="education">تعليم</option>
+                    <option value="environment">بيئة</option>
+                    <option value="social">اجتماعي</option>
+                    <option value="business">أعمال</option>
+                </select>
+                <select class="filter-select">
+                    <option value="">التصنيف</option>
+                    <option value="featured">مميز</option>
+                    <option value="new">جديد</option>
+                    <option value="popular">الأكثر شعبية</option>
+                    <option value="trending">الأكثر تداولاً</option>
+                </select>
+                <select class="filter-select">
+                    <option value="">مرحلة التطوير</option>
+                    <option value="concept">فكرة مبدئية</option>
+                    <option value="prototype">نموذج أولي</option>
+                    <option value="development">قيد التطوير</option>
+                    <option value="testing">في مرحلة الاختبار</option>
+                    <option value="launched">تم الإطلاق</option>
+                </select>
+            </div>
+        </section>
+
+        <div class="ideas-grid">
+            <!-- First Card -->
+            <div class="idea-card">
+                <div class="idea-image">
+                    <img src="1.jpeg" alt="نظام ذكي لإدارة المياه">
+                </div>
+                <div class="idea-content">
+                    <span class="idea-category">تقنية</span>
+                    <h3 class="idea-title">نظام ذكي لإدارة المياه</h3>
+                    <p class="idea-description">نظام مبتكر يستخدم الذكاء الاصطناعي لترشيد استهلاك المياه في المباني السكنية والتجارية.</p>
+                    <div class="idea-meta">
+                        <span><i class="fas fa-user"></i> محمد أشرف</span>
+                        <span class="badge featured">مميز</span>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Second Card -->
+            <div class="idea-card">
+                <div class="idea-image">
+                    <img src="2.jpeg" alt="تطبيق متابعة الحالة الصحية">
+                </div>
+                <div class="idea-content">
+                    <span class="idea-category">صحة</span>
+                    <h3 class="idea-title">تطبيق متابعة الحالة الصحية</h3>
+                    <p class="idea-description">تطبيق ذكي يساعد المرضى على متابعة حالتهم الصحية وتذكيرهم بمواعيد الأدوية والفحوصات الدورية.</p>
+                    <div class="idea-meta">
+                        <span><i class="fas fa-user"></i> Mohammed Ashraf</span>
+                        <span class="badge new">جديد</span>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Third Card -->
+            <div class="idea-card">
+                <div class="idea-image">
+                    <img src="3.jpeg" alt="منصة التعلم التفاعلي">
+                </div>
+                <div class="idea-content">
+                    <span class="idea-category">تعليم</span>
+                    <h3 class="idea-title">منصة التعلم التفاعلي</h3>
+                    <p class="idea-description">منصة تعليمية تفاعلية تستخدم الواقع المعزز لتحسين تجربة التعلم للطلاب في المراحل المختلفة.</p>
+                    <div class="idea-meta">
+                        <span><i class="fas fa-user"></i>Ashraf Ali </span>
+                        <span class="badge development">قيد التطوير</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Pagination Section -->
+        <div class="pagination">
+            <button class="pagination-button active">1</button>
+            <button class="pagination-button">2</button>
+            <button class="pagination-button">3</button>
+            <button class="pagination-button">4</button>
+            <button class="pagination-button">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+    
+        <!-- Statistics Section -->
+        <section class="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h4>150+</h4>
+                    <p>فكرة مبتكرة</p>
+                </div>
+                <div class="stat-item">
+                    <h4>1000+</h4>
+                    <p>مستخدم نشط</p>
+                </div>
+                <div class="stat-item">
+                    <h4>50+</h4>
+                    <p>مشروع ناجح</p>
+                </div>
+                <div class="stat-item">
+                    <h4>25+</h4>
+                    <p>شريك استثماري</p>
+                </div>
+            </div>
+        </section>
+        </div>
+    
+        <script>
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+    
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+    
+            // Simple search functionality
+            const searchInput = document.querySelector('.search-input');
+            const ideaCards = document.querySelectorAll('.idea-card');
+    
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                ideaCards.forEach(card => {
+                    const title = card.querySelector('.idea-title').textContent.toLowerCase();
+                    const description = card.querySelector('.idea-description').textContent.toLowerCase();
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+    
+            // Pagination functionality
+            const paginationButtons = document.querySelectorAll('.pagination-button');
+            paginationButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    paginationButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    // Add actual pagination logic here
+                });
+            });
+        </script>
+    </body>
+    </html>
